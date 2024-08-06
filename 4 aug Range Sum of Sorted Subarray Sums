@@ -1,0 +1,58 @@
+class Solution {
+public:
+vector<int> v;
+int mod=1e9+7;
+
+void solve(vector<int> &nums,int n,int k)
+{
+    if(k==n)
+    return;
+    int i=0;
+    int j=0;
+    int sum=0;
+    while(j<=k)
+    {
+        sum=(sum+nums[j])%mod;
+        j++;
+
+    }
+    v.push_back(sum);
+  
+
+    while(i<n&&j<n)
+    {
+        sum-=nums[i];
+        sum=(sum+nums[j])%mod;
+        i++;
+        j++;
+        v.push_back(sum);
+
+    }
+
+    solve(nums,n,k+1);
+
+
+
+}
+    int rangeSum(vector<int>& nums, int n, int left, int right) {
+
+        
+            solve(nums,n,0);
+        
+
+        sort(v.begin(),v.end());
+        int sum=0;
+
+        for(int i=left-1;i<right;i++)
+        sum=(sum+v[i])%mod;
+
+        
+
+        return sum;
+
+
+
+
+        
+    }
+};
