@@ -1,0 +1,133 @@
+class Solution {
+public:
+
+
+string solve(long int num,vector<string> below_20,vector<string> below_100)
+{
+    string ans;
+
+
+    int x=num/100;
+    num=num%100;
+    if(x!=0)
+    ans+=below_20[x]+" Hundred ";
+    if(num==0)
+    return ans;
+    else
+    {
+        if(num%10==0)
+        {
+            ans+=below_100[num/10]+" ";
+            return ans;
+            
+        }
+        else if(num<20)
+        {
+           ans+=below_20[num]+" ";
+        }
+        else
+        ans+=below_100[num/10]+" "+below_20[num%10]+" ";
+
+
+        return ans;
+
+    }
+    return ans;
+    
+}
+
+string help(string p)
+{
+    string ans;
+    while(p.back()==32)
+    p.pop_back();
+    for(int i=1;i<p.size();i++)
+    {
+        if(p[i]==32&&p[i-1]==32)
+        ans+=p[i];
+
+    }
+    return ans;
+}
+    
+
+    string numberToWords(int num) {
+  if(num==0)
+  return "Zero";
+     vector<string> below_20 = {"", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten","Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen","Eighteen", "Nineteen"};
+     vector<string> below_100 = {"", "Ten", "Twenty", "Thirty", "Forty","Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
+
+     
+
+     string ans;
+
+     
+
+     if(num<1000)
+     {
+     ans= solve(num,below_20,below_100);
+     }
+     else if(num<(1e6))
+     {
+        string a,b,c,d,e;
+     ans= solve(num/1000,below_20,below_100)+" Thousand "+solve(num%1000,below_20,below_100);
+     }
+     else if(num<(1e9))
+     {
+        string a,b,c,d,e;
+     a= solve(num/(1e6),below_20,below_100);
+     b=solve(((long int)num%(1000000))/1000,below_20,below_100);
+     c=solve(num%1000,below_20,below_100);
+     if(a.size()>3)
+     {
+        ans+=a+" Million ";
+     }
+     if(b.size()>3)
+     ans+=b+" Thousand ";
+     ans+=c;
+      
+     }
+     
+     else
+     {
+        string a,b,c,d,e;
+     a= solve(num/(1e9),below_20,below_100);
+     b=solve((num%(1000*1000*1000))/(1e6),below_20,below_100);
+     c=solve((num%(1000*1000))/1000,below_20,below_100);
+     d=solve(num%1000,below_20,below_100);
+
+     if(a.size()>3)
+     ans+=a+" Billion ";
+     if(b.size()>3)
+     {
+        ans+=b+" Million ";
+     }
+     if(c.size()>3)
+     ans+=c+" Thousand ";
+     ans+=d;
+
+     }
+
+     while(ans.back()==32)
+     ans.pop_back();
+     string fn;
+     for(int i=0;i<ans.length();i++)
+     {
+        if(ans[i]==32&&ans[i-1]==32)
+        continue;
+        else
+        fn+=ans[i];
+        
+
+     }
+     return fn;
+
+
+
+     
+    
+
+        
+        
+    }
+};
