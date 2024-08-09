@@ -1,0 +1,63 @@
+class Solution {
+public:
+
+bool solve(int i,int j,vector<vector<int>>& grid)
+{
+    int n=grid.size();
+    int m=grid[0].size();
+
+    map<int,int> mp;
+    for(int k=i;k<i+3;k++)
+    {
+        for(int l=j;l<j+3;l++)
+        {
+            if(grid[k][l]<=0||grid[k][l]>9)
+            return false;
+            mp[grid[k][l]]++;
+            if(mp[grid[k][l]]>1)
+            return false;
+        }
+    }
+   
+
+    int sum=grid[i][j]+grid[i][j+1]+grid[i][j+2];
+
+
+    int a=grid[i+1][j]+grid[i+1][j+1]+grid[i+1][j+2];
+    int b=grid[i+2][j]+grid[i+2][j+1]+grid[i+2][j+2];
+    int c=grid[i][j]+grid[i][j+1]+grid[i][j+2];
+    int d=grid[i][j+1]+grid[i+1][j+1]+grid[i+2][j+1];
+    int e=grid[i][j+2]+grid[i+1][j+2]+grid[i+2][j+2];
+    int f=grid[i][j]+grid[i+1][j+1]+grid[i+2][j+2];
+    int g=grid[i][j+2]+grid[i+1][j+1]+grid[i+2][j];
+    // cout<<i<<" "<<j<<endl;
+    // cout<<sum<<" "<<a<<" "<<b<<" "<<c<<" "<<d<<" "<<e<<" "<<f<<" "<<g<<endl;
+
+    
+
+    if(a==sum&&a==b&&b==c&&c==d&&d==e&&e==f&&f==g)
+    return true;
+    return false;
+    
+
+}
+    int numMagicSquaresInside(vector<vector<int>>& grid) {
+
+        int cnt=0;
+        int n=grid.size();
+        int m=grid[0].size();
+        if(n<2||m<2)
+        return 0;
+
+        for(int i=0;i<n-2;i++)
+        {
+            for(int j=0;j<m-2;j++)
+            {
+                if(solve(i,j,grid))
+                cnt++;
+            }
+        }
+        return cnt;
+        
+    }
+};
